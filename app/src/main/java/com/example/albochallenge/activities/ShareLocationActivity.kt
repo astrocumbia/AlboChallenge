@@ -5,16 +5,14 @@ import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.os.Looper
 import android.util.Log
 import android.view.View
 import androidx.core.content.ContextCompat
+import com.example.albochallenge.FirebaseStore
+import com.example.albochallenge.LocationStore
+import com.example.albochallenge.LocationService
 import com.example.albochallenge.R
-import com.google.android.gms.location.*
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.GeoPoint
 import kotlinx.android.synthetic.main.activity_share_location.*
-
 
 
 class ShareLocationActivity : AppCompatActivity() {
@@ -22,65 +20,25 @@ class ShareLocationActivity : AppCompatActivity() {
 
     private val LOCATION_REQ_CODE = 1042
 
-    private val fusedLocationClient: FusedLocationProviderClient by lazy {
-        LocationServices.getFusedLocationProviderClient(this)
-    }
 
+    private val locationUpdates: LocationService by lazy {
+        LocationService(this.baseContext) { lat, lng ->
+            locationStore.save(lat, lng)
 
-    private val locationRequest: LocationRequest by lazy {
-        LocationRequest.create()?.apply {
-            interval = 1000
-            fastestInterval = 1000
-            priority = LocationRequest.PRIORITY_HIGH_ACCURACY
-        }!!
-    }
+            val message = "${lat} , ${lng}"
 
-    private val firebaseRef by lazy {
-        val db = FirebaseFirestore.getInstance()
-
-        db.collection("location").document("topic01")
-    }
-
-    val locationCallback = object : LocationCallback() {
-        override fun onLocationResult(locationResult: LocationResult?) {
-            locationResult ?: return
-            for (location in locationResult.locations){
-
-                val coordinates = GeoPoint(location.latitude, location.longitude)
-
-                val map = mutableMapOf<String, Any>()
-
-
-                map["coordinates"] = coordinates
-
-                firebaseRef.set(map)
-
-                runOnUiThread {
-                    val message = "${location.latitude} , ${location.longitude}"
-                    coordinates_textview.text = message
-                }
-            }
+            coordinates_textview.text = message
         }
     }
 
+    private val locationStore: LocationStore by lazy {
+        FirebaseStore()
+    }
 
-    /*
-    *
-    *
-    * LocationService(this)
-    *
-    * LocatinService.init(this)
-    *
-    * LocationService.start()
-    *
-    * LocationService.stop()
-    *
-    * LocationService.destroy()
-    *
-    * */
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_share_location)
+
 
 
         // onClickStart
@@ -106,7 +64,7 @@ class ShareLocationActivity : AppCompatActivity() {
 
             start_button.visibility = View.GONE
 
-            startLocationUpdates()
+            locationUpdates.start()
         }
 
 
@@ -117,24 +75,16 @@ class ShareLocationActivity : AppCompatActivity() {
 
             start_button.visibility = View.VISIBLE
 
-            stopLocationUpdates()
+            locationUpdates.stop()
         }
 
     }
 
 
-
-
-    private fun startLocationUpdates() {
-        fusedLocationClient.requestLocationUpdates(locationRequest,
-            locationCallback,
-            Looper.getMainLooper())
+    override fun onStop() {
+        super.onStop()
+        locationUpdates.stop()
     }
-
-    private fun stopLocationUpdates() {
-        fusedLocationClient.removeLocationUpdates(locationCallback)
-    }
-
 
 
     // TODO: refactor this
