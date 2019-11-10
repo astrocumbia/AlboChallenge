@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import com.example.albochallenge.R
 import com.google.android.gms.location.*
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.GeoPoint
 import kotlinx.android.synthetic.main.activity_share_location.*
 
 
@@ -45,10 +46,12 @@ class ShareLocationActivity : AppCompatActivity() {
             locationResult ?: return
             for (location in locationResult.locations){
 
-                val map = mutableMapOf<String, Double>()
+                val coordinates = GeoPoint(location.latitude, location.longitude)
 
-                map["latitude"] = location.latitude
-                map["longitude"] = location.longitude
+                val map = mutableMapOf<String, Any>()
+
+
+                map["coordinates"] = coordinates
 
                 firebaseRef.set(map)
 
