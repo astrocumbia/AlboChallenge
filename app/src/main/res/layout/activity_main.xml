@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".activities.MainActivity">
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayoutCompat"
@@ -19,6 +19,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
+            android:id="@+id/share_location_btn"
             android:layout_marginEnd="12dp"
             android:layout_height="match_parent"
             android:layout_weight="0.5"
@@ -26,6 +27,7 @@
             android:layout_width="wrap_content" />
 
         <Button
+            android:id="@+id/receive_location_btn"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="0.5"

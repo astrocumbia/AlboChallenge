@@ -1,6 +1,7 @@
-package com.example.albochallenge
+package com.example.albochallenge.activities
 
 import android.Manifest
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
@@ -8,7 +9,9 @@ import android.os.Bundle
 import android.os.Looper
 import android.util.Log
 import androidx.core.content.ContextCompat
+import com.example.albochallenge.R
 import com.google.android.gms.location.*
+import kotlinx.android.synthetic.main.activity_main.*
 
 
 class MainActivity : AppCompatActivity() {
@@ -22,12 +25,24 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        checkForPermissions()
+        share_location_btn.setOnClickListener {
+            val intent = Intent(this, ShareLocationActivity::class.java)
+            startActivity(intent)
+        }
 
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+        receive_location_btn.setOnClickListener {
+            val intent = Intent(this, LocationUpdatesActivity::class.java)
+            startActivity(intent)
+        }
 
 
-        startLocationUpdates()
+
+//        checkForPermissions()
+//
+//        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+//
+//
+//        startLocationUpdates()
     }
 
     private fun startLocationUpdates() {
