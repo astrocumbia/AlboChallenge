@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "227850750450",
+    "firebase_url": "https://albochallenge.firebaseio.com",
+    "project_id": "albochallenge",
+    "storage_bucket": "albochallenge.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227850750450:android:40e5b2c7ac17f23b18c36b",
+        "android_client_info": {
+          "package_name": "com.example.albochallenge"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "227850750450-694j76tmrfgm3ppkdmo7g6ta675vat1d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCe9TqMOQFxJe9iyiPjGPCk6_I7xnXi0GY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227850750450-694j76tmrfgm3ppkdmo7g6ta675vat1d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
