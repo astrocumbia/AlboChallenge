@@ -8,9 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import com.example.albochallenge.R
 import com.google.android.gms.location.*
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import kotlinx.android.synthetic.main.activity_main.*
 
 
@@ -24,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
 
         share_location_btn.setOnClickListener {
             val intent = Intent(this, ShareLocationActivity::class.java)
