@@ -9,6 +9,7 @@ import com.example.albochallenge.LocationStore
 import com.example.albochallenge.R
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ListenerRegistration
+import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_location_updates.*
 import kotlinx.android.synthetic.main.activity_share_location.coordinates_textview
 import kotlinx.android.synthetic.main.activity_share_location.start_button
@@ -35,6 +36,8 @@ class LocationUpdatesActivity : AppCompatActivity() {
                     coordinates_textview.text = message
                 }
             }
+
+            FirebaseMessaging.getInstance().subscribeToTopic("topic01")
         }
 
         stop_button.setOnClickListener {
@@ -42,6 +45,9 @@ class LocationUpdatesActivity : AppCompatActivity() {
             stop_button.visibility = View.GONE
 
             locationStore.stopLocationUpdates()
+
+
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("topic01")
         }
 
     }
