@@ -12,6 +12,9 @@ import com.example.albochallenge.FirebaseStore
 import com.example.albochallenge.LocationStore
 import com.example.albochallenge.LocationService
 import com.example.albochallenge.R
+import com.example.albochallenge.network.FCMService
+import com.example.albochallenge.network.Notification
+import com.example.albochallenge.network.NotificationBody
 import kotlinx.android.synthetic.main.activity_share_location.*
 
 
@@ -24,6 +27,7 @@ class ShareLocationActivity : AppCompatActivity() {
     private val locationUpdates: LocationService by lazy {
         LocationService(this.baseContext) { lat, lng ->
             locationStore.save(lat, lng)
+            sendNotification()
 
             val message = "${lat} , ${lng}"
 
@@ -78,6 +82,20 @@ class ShareLocationActivity : AppCompatActivity() {
             locationUpdates.stop()
         }
 
+    }
+
+    private fun sendNotification() {
+        val service = FCMService()
+        val notificationBody = NotificationBody("title", "message")
+        val notification = Notification("/topics/topic01", notificationBody)
+
+        service.send(notification,
+            success = {
+                Log.e(TAG, "onSuccess")
+            },
+            failure = {
+                Log.e(TAG, "onFailure ${it}")
+            })
     }
 
 

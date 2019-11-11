@@ -5,6 +5,10 @@ import android.os.Looper
 import com.google.android.gms.location.*
 
 class LocationService(context: Context, onLocationUpdate: (Double, Double) -> Unit) {
+    private val DISTANCE_IN_METERS = 1.0F // One meter
+    private val INTERVAL_TIME = 1000L
+    private val FASTEST_INTERVAL_TIME = 1000L
+
 
     private val fusedLocationClient: FusedLocationProviderClient by lazy {
         LocationServices.getFusedLocationProviderClient(context)
@@ -13,8 +17,9 @@ class LocationService(context: Context, onLocationUpdate: (Double, Double) -> Un
 
     private val locationRequest: LocationRequest by lazy {
         LocationRequest.create()?.apply {
-            interval = 1000
-            fastestInterval = 1000
+            smallestDisplacement = DISTANCE_IN_METERS
+            interval = INTERVAL_TIME
+            fastestInterval = FASTEST_INTERVAL_TIME
             priority = LocationRequest.PRIORITY_HIGH_ACCURACY
         }!!
     }
