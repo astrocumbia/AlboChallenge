@@ -4,8 +4,8 @@ import com.google.firebase.messaging.FirebaseMessaging
 
 class FirebaseUtils {
     companion object {
-        val TOPIC = "topic01"
-        val TOPIC_PATH = "/topics/${TOPIC}"
+        const val TOPIC = "topic01"
+        const val TOPIC_PATH = "/topics/${TOPIC}"
 
         fun subscribeToNotifications() {
             FirebaseMessaging.getInstance().subscribeToTopic(TOPIC)

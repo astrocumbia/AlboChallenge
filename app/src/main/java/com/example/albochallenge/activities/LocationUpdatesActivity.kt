@@ -53,7 +53,7 @@ class LocationUpdatesActivity : AppCompatActivity() {
             locationStore.stopLocationUpdates()
 
             resetCoordinatesTextView()
-            FirebaseUtils.subscribeToNotifications()
+            FirebaseUtils.unsubscribeToNofifications()
         }
 
     }

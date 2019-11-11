@@ -6,7 +6,7 @@ import com.google.android.gms.location.*
 
 class LocationService(context: Context, onLocationUpdate: (Double, Double) -> Unit) {
     private val DISTANCE_IN_METERS = 1.0F // One meter
-    private val INTERVAL_TIME = 1000L
+    private val INTERVAL_TIME = 2000L
     private val FASTEST_INTERVAL_TIME = 1000L
 
 
