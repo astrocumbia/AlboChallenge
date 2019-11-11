@@ -1,4 +1,4 @@
-package com.example.albochallenge
+package com.example.albochallenge.services
 
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.GeoPoint
@@ -15,7 +15,7 @@ interface LocationStore {
 }
 
 
-class FirebaseStore: LocationStore {
+class FirebaseStoreService: LocationStore {
 
     private var listenerRegistration: ListenerRegistration? = null
 

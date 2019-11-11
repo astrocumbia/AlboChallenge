@@ -8,11 +8,11 @@
 
     <androidx.appcompat.widget.LinearLayoutCompat
         android:id="@+id/linearLayoutCompat"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_width="160dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -20,18 +20,18 @@
 
         <Button
             android:id="@+id/share_location_btn"
-            android:layout_marginEnd="12dp"
-            android:layout_height="match_parent"
+            android:layout_height="60dp"
             android:layout_weight="0.5"
             android:text="@string/share_button_tile"
+            android:layout_marginBottom="18dp"
             android:textAllCaps="false"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:theme="@style/PrimaryButton" />
 
         <Button
             android:id="@+id/receive_location_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
             android:layout_weight="0.5"
             android:textAllCaps="false"
             android:text="@string/receive_button_tile"

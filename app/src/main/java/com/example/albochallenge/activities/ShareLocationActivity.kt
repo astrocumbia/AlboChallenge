@@ -1,17 +1,19 @@
 package com.example.albochallenge.activities
 
 import android.Manifest
+import android.media.MediaPlayer
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
-import com.example.albochallenge.FirebaseStore
-import com.example.albochallenge.LocationStore
-import com.example.albochallenge.LocationService
+import com.example.albochallenge.services.FirebaseStoreService
+import com.example.albochallenge.services.LocationStore
+import com.example.albochallenge.services.LocationService
 import com.example.albochallenge.R
 import com.example.albochallenge.extensions.isPermissionDenied
 import com.example.albochallenge.extensions.isPermissionGranted
+import com.example.albochallenge.services.NotificationService
 import kotlinx.android.synthetic.main.activity_share_location.*
 
 
@@ -20,12 +22,25 @@ class ShareLocationActivity : AppCompatActivity() {
 
 
     private val locationStore: LocationStore by lazy {
-        FirebaseStore()
+        FirebaseStoreService()
     }
 
+    private val notificationService by lazy {
+        val key = getString(R.string.ky_fcm)
+        NotificationService(key)
+    }
+
+    private val mediaPlayer by lazy {
+        MediaPlayer.create(applicationContext,
+            R.raw.sample).apply {
+            setVolume(0.08f, 0.08f)
+        }
+    }
 
     private val locationUpdateListener: (Double, Double) -> Unit = { lat, lng ->
         locationStore.save(lat, lng)
+        notificationService.send()
+        mediaPlayer.start()
 
         runOnUiThread {
             val message = "${lat} , ${lng}"

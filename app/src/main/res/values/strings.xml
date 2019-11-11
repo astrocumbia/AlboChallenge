@@ -9,7 +9,12 @@
     <string name="start">Comenzar</string>
     <string name="stop">Detener</string>
 
+    <string name="allow_permissions">Habilitar permisos</string>
     <string name="no_updates_yet">Aún no hay actualizaciones</string>
     <string name="current_location_title">Ubicación actual</string>
+
+    <string name="device_location_title">Ubicación del dispositivo</string>
+
+    <string name="ky_fcm">AAAANQz2ifI:APA91bG--B7SajnqsTfSqLnaIXjNaDCSl15bmYnuLejWxujtZhxqF_ea376JNBXcc-elpQomyeYHQpN-Lr1ya-gxd5yQHYfKsVY9-mHKJxyabnY49QO-xgC5ESqdts_tyq1HhzWsWLnm</string>
 
 </resources>

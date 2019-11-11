@@ -3,8 +3,9 @@ package com.example.albochallenge.activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
-import com.example.albochallenge.FirebaseStore
-import com.example.albochallenge.LocationStore
+import com.example.albochallenge.FirebaseUtils
+import com.example.albochallenge.services.FirebaseStoreService
+import com.example.albochallenge.services.LocationStore
 import com.example.albochallenge.R
 import com.google.firebase.messaging.FirebaseMessaging
 import kotlinx.android.synthetic.main.activity_share_location.coordinates_textview
@@ -14,10 +15,16 @@ import kotlinx.android.synthetic.main.activity_share_location.stop_button
 
 
 class LocationUpdatesActivity : AppCompatActivity() {
-    private val TAG = LocationUpdatesActivity::class.java.canonicalName.toString()
 
     private val locationStore: LocationStore by lazy {
-        FirebaseStore()
+        FirebaseStoreService()
+    }
+
+    private val locationUpdatesListener: (Double, Double) -> Unit = { lat, lng ->
+        runOnUiThread {
+            val message = "$lat , $lng"
+            coordinates_textview.text = message
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,28 +33,27 @@ class LocationUpdatesActivity : AppCompatActivity() {
 
         configureToolbar()
 
+        setStopVisibility(show = false)
+
+
         start_button.setOnClickListener {
-            start_button.visibility = View.GONE
-            stop_button.visibility = View.VISIBLE
+            setStartVisibility(show = false)
+            setStopVisibility(show = true)
 
-            locationStore.getLocationUpdates { lat, lng ->
-                runOnUiThread {
-                    val message = "$lat , $lng"
-                    coordinates_textview.text = message
-                }
-            }
-
-            FirebaseMessaging.getInstance().subscribeToTopic("topic01")
+            locationStore.getLocationUpdates(locationUpdatesListener)
+            FirebaseUtils.subscribeToNotifications()
         }
 
+
         stop_button.setOnClickListener {
-            start_button.visibility = View.VISIBLE
-            stop_button.visibility = View.GONE
+
+            setStartVisibility(show = true)
+            setStopVisibility(show = false)
 
             locationStore.stopLocationUpdates()
 
-
-            FirebaseMessaging.getInstance().unsubscribeFromTopic("topic01")
+            resetCoordinatesTextView()
+            FirebaseUtils.subscribeToNotifications()
         }
 
     }
@@ -65,4 +71,17 @@ class LocationUpdatesActivity : AppCompatActivity() {
         }
     }
 
+
+    private fun setStartVisibility(show: Boolean) {
+        start_button.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+
+    private fun setStopVisibility(show: Boolean) {
+        stop_button.visibility = if (show) View.VISIBLE else View.GONE
+    }
+
+    private fun resetCoordinatesTextView() {
+        coordinates_textview.text = getString(R.string.no_updates_yet)
+    }
 }

@@ -21,17 +21,16 @@ interface FCMEndpoints {
 
 }
 
-class FCMService {
+class FCMService(key: String) {
     private val httpClient by lazy {
         OkHttpClient.Builder().apply {
             val interceptor = Interceptor {
                 val original = it.request()
 
-                // TODO: move this string to other part
                 val request = original
                     .newBuilder()
                     .header("Content-Type", "application/json")
-                    .header("Authorization", "key=AAAANQz2ifI:APA91bG--B7SajnqsTfSqLnaIXjNaDCSl15bmYnuLejWxujtZhxqF_ea376JNBXcc-elpQomyeYHQpN-Lr1ya-gxd5yQHYfKsVY9-mHKJxyabnY49QO-xgC5ESqdts_tyq1HhzWsWLnm")
+                    .header("Authorization", "key=${key}")
                     .method(original.method(), original.body())
                     .build()
 
@@ -57,11 +56,7 @@ class FCMService {
 
     fun send(notification: Notification, success: (Int) -> Unit, failure: (String) -> Unit) {
 
-
-
-
         val call = client.send(notification)
-
 
         call.enqueue(object : Callback<Int> {
             override fun onResponse(call: Call<Int>, response: Response<Int>) {
