@@ -12,6 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <service
+            android:name=".MyFirebaseMessaginService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
         <activity android:screenOrientation = "portrait" android:name=".activities.LocationUpdatesActivity"></activity>
         <activity android:screenOrientation = "portrait" android:name=".activities.ShareLocationActivity" />
         <activity android:screenOrientation = "portrait" android:name=".activities.MainActivity">
