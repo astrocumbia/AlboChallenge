@@ -10,15 +10,9 @@ import com.example.albochallenge.R
 
 class MainActivity : AppCompatActivity() {
 
-//    private val mediaPlayer: MediaPlayer by lazy {
-//        MediaPlayer.create(applicationContext,
-//            R.raw.sample).apply {
-//            setVolume(0.06f, 0.06f)
-//        }
-//    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportActionBar?.hide()
         setContentView(R.layout.activity_main)
 
         share_location_btn.setOnClickListener {
@@ -30,7 +24,6 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this, LocationUpdatesActivity::class.java)
             startActivity(intent)
         }
-
     }
 
 }

@@ -2,18 +2,16 @@ package com.example.albochallenge.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import com.example.albochallenge.FirebaseStore
 import com.example.albochallenge.LocationStore
 import com.example.albochallenge.R
-import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ListenerRegistration
 import com.google.firebase.messaging.FirebaseMessaging
-import kotlinx.android.synthetic.main.activity_location_updates.*
 import kotlinx.android.synthetic.main.activity_share_location.coordinates_textview
 import kotlinx.android.synthetic.main.activity_share_location.start_button
 import kotlinx.android.synthetic.main.activity_share_location.stop_button
+
+
 
 class LocationUpdatesActivity : AppCompatActivity() {
     private val TAG = LocationUpdatesActivity::class.java.canonicalName.toString()
@@ -25,6 +23,8 @@ class LocationUpdatesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_location_updates)
+
+        configureToolbar()
 
         start_button.setOnClickListener {
             start_button.visibility = View.GONE
@@ -52,5 +52,17 @@ class LocationUpdatesActivity : AppCompatActivity() {
 
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
+
+    private fun configureToolbar() {
+        supportActionBar?.apply {
+            title = getString(R.string.receive_button_tile)
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowCustomEnabled(true)
+        }
+    }
 
 }

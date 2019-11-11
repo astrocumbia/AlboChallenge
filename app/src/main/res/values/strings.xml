@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">AlboChallenge</string>
+
+    <string name="main_title">Quiero...</string>
+    <string name="receive_button_tile">Ver ubicación</string>
+    <string name="share_button_tile">Compartir ubicación</string>
+    <string name="permissions_not_granted">Permisos no concedidos :(</string>
+
+    <string name="start">Comenzar</string>
+    <string name="stop">Detener</string>
+
+    <string name="no_updates_yet">Aún no hay actualizaciones</string>
+    <string name="current_location_title">Ubicación actual</string>
+
 </resources>
