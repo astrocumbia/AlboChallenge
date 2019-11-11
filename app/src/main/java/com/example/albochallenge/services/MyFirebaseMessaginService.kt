@@ -1,4 +1,4 @@
-package com.example.albochallenge
+package com.example.albochallenge.services
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
@@ -7,12 +7,13 @@ import android.content.Context
 import android.content.Intent
 import android.media.RingtoneManager
 import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
+import com.example.albochallenge.R
 import com.example.albochallenge.activities.MainActivity
 import com.google.firebase.messaging.FirebaseMessagingService
-import androidx.core.app.NotificationManagerCompat
 import com.google.firebase.messaging.RemoteMessage
+
+
 
 
 
@@ -52,7 +53,9 @@ class MyFirebaseMessaginService : FirebaseMessagingService() {
             notificationManager.createNotificationChannel(channel)
         }
 
-        notificationManager.notify(0 /* ID of notification */, notificationBuilder.build())
+        val tsLong = System.currentTimeMillis() / 1000
+        val notificationId = tsLong.toInt()
+        notificationManager.notify(notificationId /* ID of notification */, notificationBuilder.build())
 
 
     }
